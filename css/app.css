@@ -1,0 +1,43 @@
+
+body {
+    font-family: Arial, sans-serif;   
+}
+
+#logo {
+    background-image: url(../images/header.png);
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    width: 334px;
+    height:117px;
+    margin: 0px auto;
+}
+
+header {
+    width: 700px;
+    margin: 0px auto;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;   
+}
+
+.clearFloat {
+    clear: both;
+}
+
+#searchWrapper {
+    width: 334px;
+    margin: 0px auto;
+}
+#errorText{
+    text-align: center;
+    margin: 20px 0px 0px 0px;
+    font-size: 14px;
+    color:#ff0000;
+}
+section {
+    width: 700px;
+    margin: 0px auto;
+}
