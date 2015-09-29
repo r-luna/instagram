@@ -16,6 +16,9 @@ header, section {
     width: 700px;
     margin: 0px auto;
 }
+#contentWrapper {
+    margin: 20px 0px 0px 0px;
+}
 .left {
     float: left;
 }
@@ -41,7 +44,8 @@ nav {
     width: 680px;
     margin: 0px auto;
     padding: 10px 10px 20px 10px;
-    background-color: #cccccc;
+    border-bottom: 1px solid #8b8b8b;
+    text-align: center;
 }
 nav input:first-child {
     float: left;
@@ -49,10 +53,34 @@ nav input:first-child {
 nav input:nth-child(2) {
     float: right;
 }
-
+input[type="button"], input[type="submit"] {
+    border: 1px solid #000000;
+    cursor: pointer;
+}
 .disabled {
-    background-color:coral;   
+    background-color:#e6e6e6;
+    border-color: #b4b4b4 !important;
+    color:#a0a0a0;
+    cursor:auto !important;
 }
 .thumbnail {
     float:left;   
 }
+.center {
+    font-size: 12px;
+    width: 200px;   
+}
+#navInfo {
+    position: relative;
+    top: -18px;
+    left: 72px;
+    width: 560px;
+}
+
+
+
+
+
+
+
+

@@ -9,6 +9,10 @@
         <script type="text/javascript" src="scripts/app.js"></script>      
     </head>
     <body ng-controller="MyController">
+        <pre>
+            {{ ndx }}
+        </pre>
+        
         <header>
             <div id="logo"></div>
             <div id="searchWrapper">
@@ -24,22 +28,25 @@
             </div>
         </header>
         <nav ng-show="pageObjects.length !== 0">
-            <input type="button" ng-class="{'disabled' : pageObjects.length <= 1}" ng-click="previousPage()" value="previous" /> 
-            <input type="button" ng-class="{'disabled' : pageObjects.length == 0}" ng-click="nextPage()" value="next" />
+            <input type="button" ng-class="{'disabled' : ndx.length === 0}" ng-click="previousPage()" value="previous" />
+            <input type="button" ng-class="{'disabled' : pageObjects.length === 0}" ng-click="nextPage()" value="next" />
             <div class="clearFloat"></div>
+            <div id="navInfo">{{ returnLength() }}</div>
         </nav>
-        <section ng-repeat="pages in pageObjects" ng-if="$index === pageObjects.length -1">
-            <div class="thumbnail" ng-repeat="page in pages.data">
-                <a href="{{ page.link}}" target="_blank">
-                    <img src="{{ page.images.thumbnail.url }}" width="100" height="100" border="0" />
-                </a>
+        <section>
+            <div id="contentWrapper">
+                <div class="thumbnail" ng-repeat="page in currentPage.data">
+                    <a href="{{ page.link}}" target="_blank">
+                        <img src="{{ page.images.thumbnail.url }}" width="100" height="100" border="0" />
+                    </a>
+                </div>
             </div>
         </section>
         <div class="clearFloat"></div>
 
         <pre>
             
-            {{ pageObjects[pageObjects.length -1] | json }}
+            {{ currentPage | json }}
             
             
         </pre> 

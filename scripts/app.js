@@ -2,19 +2,19 @@ angular.module('insta', [])
 .config(function($httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
 })
-.controller('MyController', function($scope, $http, $sce) {
-	
+.controller('MyController', function($scope, $http) {
+	$scope.ndx = 0; // current index being viewed within the cached responses
     $scope.searchCriteria = 'cat';
-    $scope.pageObjects = [];
-    $scope.error = null;
+    $scope.pageObjects = []; // cache api responses here
+    $scope.error = null; // if error in api call
+    $scope.currentPage = null;
 
-    $scope.trustSrc = function(src) {
-        return $sce.trustAsResourceUrl(src);
-    };
-
+    function setCurrentPage(){
+        $scope.currentPage = $scope.pageObjects[$scope.ndx];
+    }
+    
     $scope.searchInstagram = function(url,isPrev) {
         var cid = '63d551fcdc4f487c8c51ce690a2fe923';
-        var ndx = ndx || 0;
         var url = url || 'https://api.instagram.com/v1/tags/' + $scope.searchCriteria + '/media/recent?client_id=' + cid + '&callback=JSON_CALLBACK';
         
         if (url.indexOf('angular.callbacks') !== -1){
@@ -25,6 +25,8 @@ angular.module('insta', [])
         .success(function(response) {
             if (!isPrev){
                 $scope.pageObjects.push(response);
+                $scope.ndx =  $scope.pageObjects.length -1;
+                setCurrentPage();
             }
         })
         .error(function(err){
@@ -33,26 +35,34 @@ angular.module('insta', [])
     };
 
     $scope.previousPage = function(){
-        if ($scope.pageObjects.length === 1){
+        if ($scope.pageObjects.length === 1 || $scope.ndx === 0){
             return;
         }
-        var len = $scope.pageObjects.length -1;
-        var pgn = $scope.pageObjects[len].pagination.next_url || null;
-        var min = $scope.pageObjects[len].pagination.min_tag_id;
-        $scope.pageObjects.pop();
-        if (!min){
-            return;
-        }
-        pgn = pgn.replace(/(?![max_tag_id\=])[0-9]+$/,min);
-        $scope.searchInstagram(pgn,true);
+        $scope.ndx--;
+        setCurrentPage();
     };
 
     $scope.nextPage = function(){
-        var pgn = $scope.pageObjects[$scope.pageObjects.length-1].pagination.next_url || null;
+        var pgn = $scope.pageObjects[$scope.ndx].pagination.next_url || null;
         if (!pgn){
             return;
         }
-        $scope.searchInstagram(pgn,false);
+        if ($scope.ndx === $scope.pageObjects.length -1){
+            $scope.searchInstagram(pgn,false);
+        } else {
+            $scope.ndx++;
+            setCurrentPage();
+        }
+    };
+    
+    $scope.returnLength = function(){
+        var currentPage = 0;
+        var totalImages = 0;
+        var objs = $scope.pageObjects;
+        for (var i=0;i<objs.length;i++){
+            totalImages = totalImages + objs[i].data.length;
+        }
+        return 'You are on page ' + ($scope.ndx + 1 ) + ' of ' + objs.length + ' pages consisting of ' + totalImages + ' images.';
     };
     
 });
