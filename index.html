@@ -14,18 +14,27 @@
             <div id="searchWrapper">
                 <form>
                     <div class="left">
-                        <input type="text" name="search" placeholder="Search text" value="{{ searchCriteria }}" />
+                        <input type="text" name="search" placeholder="Search text" ng-model="searchCriteria" />
                     </div>
                     <div class="right">
-                        <input type="submit">
+                        <input type="submit" ng-click="searchInstagram()">
                     </div>
                     <div class="clearFloat"></div>
-                    <div id="errorText">errors appear here</div>
+                    <div id="errorText">
+
+                    </div>
                 </form>
             </div>
         </header>
         <section>
         
         </section>
+        
+
+        <pre>
+            {{ results | json }}
+            
+            {{ searchCriteria }}
+        </pre> 
     </body>
 </html>

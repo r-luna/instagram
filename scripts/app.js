@@ -5,31 +5,23 @@ angular.module('insta', [])
 .controller('MyController', function($scope, $http, $sce) {
 	
     $scope.searchCriteria = '';
+    $scope.results = null;
+    $scope.error = null;
 
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
     };
 
-    $scope.searchYouTube = function(keyword) {
+    $scope.searchInstagram = function(keyword) {
+        var cid = '63d551fcdc4f487c8c51ce690a2fe923';
+        var url = 'https://api.instagram.com/v1/tags/' + $scope.searchCriteria + '/media/recent?client_id=' + cid + '&callback=JSON_CALLBACK';
 
-        $scope.keyword = keyword;
-
-        var url = 'https://api.instagram.com/v1/tags/';
-        var request = {
-            callback: 'JSON_CALLBACK',
-            client_id: '63d551fcdc4f487c8c51ce690a2fe923'
-        };
-
-        $http({
-            method: 'GET',
-            url:  + '/media/recent',
-            params: request
+        $http.jsonp(url)
+        .success(function(response) {
+            $scope.results = response;
         })
-        .then(function(response) {
-            $scope.results = response.data.items;
-        },
-        function(response) {
-            alert('error');
+        .error(function(err){
+            $scope.error = err;   
         });
     };
 
