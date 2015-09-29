@@ -12,7 +12,7 @@ body {
     margin: 0px auto;
 }
 
-header {
+header, section {
     width: 700px;
     margin: 0px auto;
 }
@@ -37,7 +37,19 @@ header {
     font-size: 14px;
     color:#ff0000;
 }
-section {
-    width: 700px;
+nav {
+    width: 680px;
     margin: 0px auto;
+    padding: 10px 10px 20px 10px;
+    background-color: #cccccc;
+}
+nav input:first-child {
+    float: left;
+}
+nav input:nth-child(2) {
+    float: right;
+}
+
+.disabled {
+    background-color:coral;   
 }

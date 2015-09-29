@@ -20,21 +20,25 @@
                         <input type="submit" ng-click="searchInstagram()">
                     </div>
                     <div class="clearFloat"></div>
-                    <div id="errorText">
-
-                    </div>
                 </form>
             </div>
         </header>
+        <nav ng-show="results.pageObjects.length !== 0">
+            <input type="button" ng-class="{'disabled' : results.pageObjects.length !== 0}" ng-click="previousPage()" value="previous" /> 
+            <input type="button" ng-class="{'disabled' : results.pageObjects.length !== 0}" ng-click="nextPage()" value="next" />
+            <div class="clearFloat"></div>
+        </nav>
         <section>
         
         </section>
         
 
         <pre>
-            {{ results | json }}
+            {{ results.pageObjects.length }}
+        
+            {{ results.pageObjects[results.pageObjects.length -1] | json }}
             
-            {{ searchCriteria }}
+            
         </pre> 
     </body>
 </html>
