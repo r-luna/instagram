@@ -36,6 +36,9 @@ angular.module('insta', [])
     };
 
     $scope.previousPage = function(){
+        if ($scope.results.pageObjects.length === 1){
+            return;
+        }
         var len = $scope.results.pageObjects.length -1;
         var pgn = $scope.results.pageObjects[len].pagination.next_url || null;
         var min = $scope.results.pageObjects[len].pagination.min_tag_id;
