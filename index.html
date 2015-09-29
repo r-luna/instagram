@@ -23,9 +23,9 @@
                 </form>
             </div>
         </header>
-        <nav ng-show="results.pageObjects.length !== 0">
-            <input type="button" ng-class="{'disabled' : pageObjects.length >= 1}" ng-click="previousPage()" value="previous" /> 
-            <input type="button" ng-class="{'disabled' : pageObjects.length !== 0}" ng-click="nextPage()" value="next" />
+        <nav ng-show="pageObjects.length !== 0">
+            <input type="button" ng-class="{'disabled' : pageObjects.length <= 1}" ng-click="previousPage()" value="previous" /> 
+            <input type="button" ng-class="{'disabled' : pageObjects.length == 0}" ng-click="nextPage()" value="next" />
             <div class="clearFloat"></div>
         </nav>
         <section ng-repeat="pages in pageObjects" ng-if="$index === pageObjects.length -1">
