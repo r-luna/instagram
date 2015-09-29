@@ -13,7 +13,7 @@ angular.module('insta', [])
         $scope.currentPage = $scope.pageObjects[$scope.ndx];
     }
     
-    $scope.searchInstagram = function(url,isPrev) {
+    function searchInstagram(url,isPrev) {
         var cid = '63d551fcdc4f487c8c51ce690a2fe923';
         var url = url || 'https://api.instagram.com/v1/tags/' + $scope.searchCriteria + '/media/recent?client_id=' + cid + '&callback=JSON_CALLBACK';
         
@@ -24,14 +24,26 @@ angular.module('insta', [])
         $http.jsonp(url)
         .success(function(response) {
             if (!isPrev){
-                $scope.pageObjects.push(response);
-                $scope.ndx =  $scope.pageObjects.length -1;
-                setCurrentPage();
+                if (response.data.length !== 0){
+                    $scope.pageObjects.push(response);
+                    $scope.ndx =  $scope.pageObjects.length -1;
+                    setCurrentPage();
+                } else {
+                    $scope.searchCriteria = null;
+                    $scope.error = 'Nothing was found. Try different search criteria.';   
+                }
             }
         })
         .error(function(err){
             $scope.error = err;   
         });
+    }
+    
+    $scope.submitForm = function(){
+        $scope.error = null;
+        $scope.pageObjects = [];
+        $scope.currentPage = null;
+        searchInstagram();
     };
 
     $scope.previousPage = function(){
@@ -48,7 +60,7 @@ angular.module('insta', [])
             return;
         }
         if ($scope.ndx === $scope.pageObjects.length -1){
-            $scope.searchInstagram(pgn,false);
+            searchInstagram(pgn,false);
         } else {
             $scope.ndx++;
             setCurrentPage();
@@ -62,7 +74,7 @@ angular.module('insta', [])
         for (var i=0;i<objs.length;i++){
             totalImages = totalImages + objs[i].data.length;
         }
-        return 'You are on page ' + ($scope.ndx + 1 ) + ' of ' + objs.length + ' pages consisting of ' + totalImages + ' images.';
+        return 'You are on page ' + ($scope.ndx + 1 ) + ' of ' + objs.length + ' pages consisting of ' + totalImages + ' cached images.';
     };
     
 });

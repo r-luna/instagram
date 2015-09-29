@@ -9,10 +9,6 @@
         <script type="text/javascript" src="scripts/app.js"></script>      
     </head>
     <body ng-controller="MyController">
-        <pre>
-            {{ ndx }}
-        </pre>
-        
         <header>
             <div id="logo"></div>
             <div id="searchWrapper">
@@ -21,9 +17,10 @@
                         <input type="text" name="search" placeholder="Search text" ng-model="searchCriteria" />
                     </div>
                     <div class="right">
-                        <input type="submit" ng-click="searchInstagram()">
+                        <input type="submit" ng-click="submitForm()">
                     </div>
                     <div class="clearFloat"></div>
+                    <div id="errorText" ng-show="error">{{ error}}</div>
                 </form>
             </div>
         </header>
@@ -42,13 +39,6 @@
                 </div>
             </div>
         </section>
-        <div class="clearFloat"></div>
-
-        <pre>
-            
-            {{ currentPage | json }}
-            
-            
-        </pre> 
+        <div class="clearFloat"></div> 
     </body>
 </html>
