@@ -5,10 +5,7 @@ angular.module('insta', [])
 .controller('MyController', function($scope, $http, $sce) {
 	
     $scope.searchCriteria = 'cat';
-    $scope.results = {
-        currentIndex:0,
-        pageObjects: []
-    };
+    $scope.pageObjects = [];
     $scope.error = null;
 
     $scope.trustSrc = function(src) {
@@ -27,7 +24,7 @@ angular.module('insta', [])
         $http.jsonp(url)
         .success(function(response) {
             if (!isPrev){
-                $scope.results.pageObjects.push(response);
+                $scope.pageObjects.push(response);
             }
         })
         .error(function(err){
@@ -36,13 +33,13 @@ angular.module('insta', [])
     };
 
     $scope.previousPage = function(){
-        if ($scope.results.pageObjects.length === 1){
+        if ($scope.pageObjects.length === 1){
             return;
         }
-        var len = $scope.results.pageObjects.length -1;
-        var pgn = $scope.results.pageObjects[len].pagination.next_url || null;
-        var min = $scope.results.pageObjects[len].pagination.min_tag_id;
-        $scope.results.pageObjects.pop();
+        var len = $scope.pageObjects.length -1;
+        var pgn = $scope.pageObjects[len].pagination.next_url || null;
+        var min = $scope.pageObjects[len].pagination.min_tag_id;
+        $scope.pageObjects.pop();
         if (!min){
             return;
         }
@@ -51,7 +48,7 @@ angular.module('insta', [])
     };
 
     $scope.nextPage = function(){
-        var pgn = $scope.results.pageObjects[$scope.results.pageObjects.length-1].pagination.next_url || null;
+        var pgn = $scope.pageObjects[$scope.pageObjects.length-1].pagination.next_url || null;
         if (!pgn){
             return;
         }

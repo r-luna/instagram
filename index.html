@@ -24,23 +24,22 @@
             </div>
         </header>
         <nav ng-show="results.pageObjects.length !== 0">
-            <input type="button" ng-class="{'disabled' : results.pageObjects.length !== 0}" ng-click="previousPage()" value="previous" /> 
-            <input type="button" ng-class="{'disabled' : results.pageObjects.length !== 0}" ng-click="nextPage()" value="next" />
+            <input type="button" ng-class="{'disabled' : pageObjects.length >= 1}" ng-click="previousPage()" value="previous" /> 
+            <input type="button" ng-class="{'disabled' : pageObjects.length !== 0}" ng-click="nextPage()" value="next" />
             <div class="clearFloat"></div>
         </nav>
-        <section ng-repeat="pages in results.pageObjects" ng-if="$index === results.pageObjects.length -1">
+        <section ng-repeat="pages in pageObjects" ng-if="$index === pageObjects.length -1">
             <div class="thumbnail" ng-repeat="page in pages.data">
                 <a href="{{ page.link}}" target="_blank">
                     <img src="{{ page.images.thumbnail.url }}" width="100" height="100" border="0" />
                 </a>
             </div>
         </section>
-        
+        <div class="clearFloat"></div>
 
         <pre>
-            {{ results.pageObjects.length }}
-        
-            {{ results.pageObjects[results.pageObjects.length -1] | json }}
+            
+            {{ pageObjects[pageObjects.length -1] | json }}
             
             
         </pre> 
