@@ -4,13 +4,23 @@ angular.module('insta', [])
 })
 .controller('MyController', function($scope, $http) {
 	$scope.ndx = 0; // current index being viewed within the cached responses
-    $scope.searchCriteria = 'cat';
+    $scope.searchCriteria = null;
     $scope.pageObjects = []; // cache api responses here
     $scope.error = null; // if error in api call
     $scope.currentPage = null;
-
+    $scope.nextBtnVal = 'Load more...';
+    
+    
     function setCurrentPage(){
         $scope.currentPage = $scope.pageObjects[$scope.ndx];
+    }
+    
+    function setNextBtnValue(){
+        if ($scope.ndx === $scope.pageObjects.length -1){
+            $scope.nextBtnVal = 'Load more...';
+        } else {
+            $scope.nextBtnVal = 'Next';
+        }
     }
     
     function searchInstagram(url,isPrev) {
@@ -22,7 +32,7 @@ angular.module('insta', [])
         }
         
         $http.jsonp(url)
-        .success(function(response) {
+        .success(function(response, status, headers, config) {
             if (!isPrev){
                 if (response.data.length !== 0){
                     $scope.pageObjects.push(response);
@@ -30,19 +40,31 @@ angular.module('insta', [])
                     setCurrentPage();
                 } else {
                     $scope.searchCriteria = null;
+                    $scope.theForm.$setPristine();
                     $scope.error = 'Nothing was found. Try different search criteria.';   
                 }
             }
         })
-        .error(function(err){
-            $scope.error = err;   
+        .error(function(data,status,headers,config){
+            if (status === 404){
+                resetData();
+                $scope.error = 'Instagram didn\'t like your search string. Try not to use special characters';
+                $scope.theForm.$setPristine();
+            }
         });
+    }
+    
+    function resetData(){
+        $scope.pageObjects = [];
+        $scope.currentPage = null;
     }
     
     $scope.submitForm = function(){
         $scope.error = null;
-        $scope.pageObjects = [];
-        $scope.currentPage = null;
+        if (!$scope.searchCriteria){
+            return;   
+        }
+        resetData();
         searchInstagram();
     };
 
@@ -51,6 +73,7 @@ angular.module('insta', [])
             return;
         }
         $scope.ndx--;
+        setNextBtnValue();
         setCurrentPage();
     };
 
@@ -63,6 +86,7 @@ angular.module('insta', [])
             searchInstagram(pgn,false);
         } else {
             $scope.ndx++;
+            setNextBtnValue();
             setCurrentPage();
         }
     };
