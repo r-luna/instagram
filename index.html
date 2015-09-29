@@ -9,22 +9,19 @@
         <script type="text/javascript" src="scripts/app.js"></script>      
     </head>
     <body ng-controller="MyController">
-        <pre>
-            {{ error }}
-        </pre>
         <header>
             <div id="logo"></div>
             <div id="searchWrapper">
                 <form name="theForm" novalidate>
                     <div class="left">
-                        <input type="text" name="search" placeholder="Search text" ng-model="searchCriteria" ng-pattern"/^\w\W+$/" autofocus required />
+                        <input type="text" name="search" placeholder="Keyword" ng-model="searchCriteria" ng-pattern="/^\w+$/" autofocus required />
                     </div>
                     <div class="right">
                         <input type="submit" ng-click="submitForm()">
                     </div>
                     <div class="clearFloat"></div>
                     <div class="errorText" ng-if="theForm.$submitted && theForm.search.$error.pattern">
-                        This field is required
+                        Invalid characters.
                     </div>
                     <div class="errorText" ng-if="theForm.$submitted && theForm.search.$error.required">
                         This field is required
@@ -35,17 +32,19 @@
                 </form>
             </div>
         </header>
-        <nav ng-show="pageObjects.length !== 0">
-            <input type="button" ng-class="{'disabled' : ndx.length === 0}" ng-click="previousPage()" value="Previous" />
-            <input type="button" ng-class="{'disabled' : pageObjects.length === 0}" ng-click="nextPage()" value="{{ nextBtnVal }}" />
-            <div class="clearFloat"></div>
-            <div id="navInfo">{{ returnLength() }}</div>
+        <nav id="infoTextWrapper" ng-show="infoText">
+            <div>&nbsp;
+                <input type="button" ng-show="pageObjects.length !== 0" ng-class="{'disabled' : ndx.length === 0}" ng-click="previousPage()" value="Previous" />
+                <input type="button" ng-show="pageObjects.length !== 0" ng-class="{'disabled' : pageObjects.length === 0}" ng-click="nextPage()" value="{{ nextBtnVal }}" />
+                <div class="clearFloat"></div>
+            </div>
+            <div id="navInfo">{{ infoText }}</div>
         </nav>
-        <section>
+        <section ng-show="currentPage">
             <div id="contentWrapper">
                 <div class="thumbnail" ng-repeat="page in currentPage.data">
-                    <a href="{{ page.link}}" target="_blank">
-                        <img src="{{ page.images.thumbnail.url }}" width="100" height="100" border="0" />
+                    <a href="{{ page.link }}" target="_blank">
+                        <img src="{{ page.images.thumbnail.url }}" ng-if="page" width="100" height="100" border="0" />
                     </a>
                 </div>
             </div>

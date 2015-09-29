@@ -5,8 +5,9 @@ body {
 
 #logo {
     background-image: url(../images/header.png);
-    background-position: 0px 0px;
+    background-position: 40px 0px;
     background-repeat: no-repeat;
+    background-size: 80% 80%;
     width: 334px;
     height:117px;
     margin: 0px auto;
@@ -76,7 +77,6 @@ input[type="button"], input[type="submit"] {
     left: 72px;
     width: 514px;
 }
-
 
 
 

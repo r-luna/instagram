@@ -9,10 +9,19 @@ angular.module('insta', [])
     $scope.error = null; // if error in api call
     $scope.currentPage = null;
     $scope.nextBtnVal = 'Load more...';
-    
+    $scope.infoText = null;
     
     function setCurrentPage(){
         $scope.currentPage = $scope.pageObjects[$scope.ndx];
+    }
+    
+    function setInfo(){
+        var totalImages = 0;
+        var objs = $scope.pageObjects;
+        for (var i=0;i<objs.length;i++){
+            totalImages = totalImages + objs[i].data.length;
+        }
+        $scope.infoText = 'You are on page ' + ($scope.ndx + 1 ) + ' of ' + objs.length + ' pages consisting of ' + totalImages + ' cached images.';
     }
     
     function setNextBtnValue(){
@@ -25,7 +34,7 @@ angular.module('insta', [])
     
     function searchInstagram(url,isPrev) {
         var cid = '63d551fcdc4f487c8c51ce690a2fe923';
-        var url = url || 'https://api.instagram.com/v1/tags/' + $scope.searchCriteria + '/media/recent?client_id=' + cid + '&callback=JSON_CALLBACK';
+        var url = url || 'https://api.instagram.com/v1/tags/' + encodeURIComponent($scope.searchCriteria) + '/media/recent?client_id=' + cid + '&count=50&callback=JSON_CALLBACK';
         
         if (url.indexOf('angular.callbacks') !== -1){
             url = url.replace(/angular\.callbacks\._[0-9]+/,'JSON_CALLBACK');
@@ -37,6 +46,8 @@ angular.module('insta', [])
                 if (response.data.length !== 0){
                     $scope.pageObjects.push(response);
                     $scope.ndx =  $scope.pageObjects.length -1;
+                    $scope.error = null;
+                    setInfo();
                     setCurrentPage();
                 } else {
                     $scope.searchCriteria = null;
@@ -46,10 +57,15 @@ angular.module('insta', [])
             }
         })
         .error(function(data,status,headers,config){
+            console.log(status); 
             if (status === 404){
                 resetData();
-                $scope.error = 'Instagram didn\'t like your search string. Try not to use special characters';
+                $scope.searchCriteria = null;
+                $scope.infoText = null;
+                $scope.error = 'Instagram returned 404.... try searching again....';
                 $scope.theForm.$setPristine();
+            } else {
+                console.log(data,status,headers);   
             }
         });
     }
@@ -64,6 +80,7 @@ angular.module('insta', [])
         if (!$scope.searchCriteria){
             return;   
         }
+        $scope.infoText = 'Searching Instagram for photos tagged with "' + $scope.searchCriteria + '".';
         resetData();
         searchInstagram();
     };
@@ -75,6 +92,7 @@ angular.module('insta', [])
         $scope.ndx--;
         setNextBtnValue();
         setCurrentPage();
+        setInfo();
     };
 
     $scope.nextPage = function(){
@@ -83,22 +101,16 @@ angular.module('insta', [])
             return;
         }
         if ($scope.ndx === $scope.pageObjects.length -1){
+            $scope.infoText = 'Loading...';
             searchInstagram(pgn,false);
         } else {
             $scope.ndx++;
             setNextBtnValue();
             setCurrentPage();
+            setInfo();
         }
     };
     
-    $scope.returnLength = function(){
-        var currentPage = 0;
-        var totalImages = 0;
-        var objs = $scope.pageObjects;
-        for (var i=0;i<objs.length;i++){
-            totalImages = totalImages + objs[i].data.length;
-        }
-        return 'You are on page ' + ($scope.ndx + 1 ) + ' of ' + objs.length + ' pages consisting of ' + totalImages + ' cached images.';
-    };
+
     
 });
