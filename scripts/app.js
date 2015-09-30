@@ -11,6 +11,7 @@ angular.module('insta', ['ngAnimate'])
     $scope.nextBtnVal = 'Load more...';
     $scope.infoText = null;
     $scope.headers = null;
+    var canLoad = true;
     
     function setCurrentPage(){
         $scope.currentPage = $scope.pageObjects[$scope.ndx];
@@ -50,6 +51,9 @@ angular.module('insta', ['ngAnimate'])
                     $scope.error = null;
                     setInfo();
                     setCurrentPage();
+                    setTimeout(function(){
+                        canLoad = true;
+                    },700);
                 } else {
                     $scope.searchCriteria = null;
                     $scope.infoText = null;
@@ -103,10 +107,11 @@ angular.module('insta', ['ngAnimate'])
 
     $scope.nextPage = function(){
         var pgn = $scope.pageObjects[$scope.ndx].pagination.next_url || null;
-        if (!pgn){
+        if (!pgn || !canLoad){
             return;
         }
         if ($scope.ndx === $scope.pageObjects.length -1){
+            canLoad = false;
             $scope.infoText = 'Loading...';
             searchInstagram(pgn,false);
         } else {
