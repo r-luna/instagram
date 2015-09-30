@@ -65,6 +65,13 @@ angular.module('insta', ['ngAnimate'])
                 $scope.infoText = null;
                 $scope.error = 'Instagram returned 404.... try searching again....';
                 $scope.theForm.$setPristine();
+            } else if (status === 503){
+                resetData();
+                $scope.searchCriteria = null;
+                $scope.infoText = null;
+                $scope.error = 'Instagram returned 503 (server unavailable).... you\'re searching too quickly!';
+                $scope.theForm.$setPristine();
+                
             } else {
                 console.log(data,status,headers);   
             }
