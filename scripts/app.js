@@ -58,6 +58,9 @@ angular.module('insta', ['ngAnimate'])
                 }
             }
         },function(data){
+            
+            console.log('inside error callback',data);
+            
             if (data.status === 404){
                 resetData();
                 $scope.searchCriteria = null;
