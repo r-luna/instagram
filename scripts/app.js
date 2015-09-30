@@ -34,7 +34,7 @@ angular.module('insta', ['ngAnimate'])
     
     function searchInstagram(url,isPrev) {
         var cid = '63d551fcdc4f487c8c51ce690a2fe923';
-        var url = url || 'https://api.instagram.com/v1/tags/' + encodeURIComponent($scope.searchCriteria) + '/media/recent?client_id=' + cid + '&count=50&callback=JSON_CALLBACK';
+        var url = url || 'https://api.instagram.com/v1/tags/' + encodeURIComponent($scope.searchCriteria) + '/media/recent?client_id=' + cid + '&count=30&callback=JSON_CALLBACK';
         
         if (url.indexOf('angular.callbacks') !== -1){
             url = url.replace(/angular\.callbacks\._[0-9]+/,'JSON_CALLBACK');
@@ -51,6 +51,7 @@ angular.module('insta', ['ngAnimate'])
                     setCurrentPage();
                 } else {
                     $scope.searchCriteria = null;
+                    $scope.infoText = null;
                     $scope.theForm.$setPristine();
                     $scope.error = 'Nothing was found. Try different search criteria.';   
                 }

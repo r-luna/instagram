@@ -21,22 +21,40 @@ img {
 
 .thumbnail {
     transition: all linear 0.5s;
+    height: 80px;
+    width: 80px;
     opacity: 1;
-    float:left;   
+    float:left;
+    overflow: hidden;
+    border: 1px solid #ccc;
 }
 .thumbnail.ng-enter{
     opacity: 0 !important;
+    height: 0px;
+    width: 0px;
 }
 .thumbnail.ng-enter-active{
     opacity: 1 !important;
+    height: 50px !important;
+    width: 50px !important;
+}
+.thumbnail.ng-leave-active {
+    opacity: 0 !important;
+    height: 0px;
+    width: 0px;
+}
+.thumbnail.ng-leave-active {
+    opacity: 0 !important;
+    height: 0px;
+    width: 0px;
 }
 .thumbnail.ng-enter-stagger {
-    transition-delay: 0.03s;
-    animation-delay: 0.03s;
+    transition-delay: 0.05s;
+    animation-delay: 0.01s;
 }
 .thumbnail.ng-leave-stagger {
-    transition-delay: 0.03s;
-    animation-delay: 0.03s;
+    transition-delay: 0.05s;
+    animation-delay: 0.01s;
 }
 
 
