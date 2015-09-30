@@ -10,6 +10,7 @@ angular.module('insta', ['ngAnimate'])
     $scope.currentPage = null;
     $scope.nextBtnVal = 'Load more...';
     $scope.infoText = null;
+    $scope.headers = null;
     
     function setCurrentPage(){
         $scope.currentPage = $scope.pageObjects[$scope.ndx];
@@ -41,10 +42,10 @@ angular.module('insta', ['ngAnimate'])
         }
         
         $http.jsonp(url)
-        .success(function(response, status, headers, config) {
+        .then(function(response){
             if (!isPrev){
-                if (response.data.length !== 0){
-                    $scope.pageObjects.push(response);
+                if (response.data.data.length !== 0){
+                    $scope.pageObjects.push(response.data);
                     $scope.ndx =  $scope.pageObjects.length -1;
                     $scope.error = null;
                     setInfo();
@@ -56,24 +57,21 @@ angular.module('insta', ['ngAnimate'])
                     $scope.error = 'Nothing was found. Try different search criteria.';   
                 }
             }
-        })
-        .error(function(data,status,headers,config){
-            console.log(status); 
-            if (status === 404){
+        },function(data){
+            if (data.status === 404){
                 resetData();
                 $scope.searchCriteria = null;
                 $scope.infoText = null;
                 $scope.error = 'Instagram returned 404.... try searching again....';
                 $scope.theForm.$setPristine();
-            } else if (status === 503){
+            } else if (data.status === 503){
                 resetData();
                 $scope.searchCriteria = null;
                 $scope.infoText = null;
                 $scope.error = 'Instagram returned 503 (server unavailable).... you\'re searching too quickly!';
                 $scope.theForm.$setPristine();
-                
             } else {
-                console.log(data,status,headers);   
+                console.log(data);   
             }
         });
     }
