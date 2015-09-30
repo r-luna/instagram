@@ -44,7 +44,7 @@
             <div id="contentWrapper">
                 <div class="thumbnail" ng-repeat="page in currentPage.data" >
                     <a href="{{ page.link }}" target="_blank">
-                        <img src="{{ page.images.thumbnail.url }}" />
+                        <img ng-src="{{ page.images.thumbnail.url }}" />
                     </a>
                 </div>
             </div>
