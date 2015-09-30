@@ -12,10 +12,40 @@ body {
     height:117px;
     margin: 0px auto;
 }
+img {
+    height: 100px;
+    width: 100px;
+    border: none;
+}
+
+
+.thumbnail {
+    transition: all linear 0.5s;
+    opacity: 1;
+    float:left;   
+}
+.thumbnail.ng-enter{
+    opacity: 0 !important;
+}
+.thumbnail.ng-enter-active{
+    opacity: 1 !important;
+}
+.thumbnail.ng-enter-stagger {
+    transition-delay: 0.03s;
+    animation-delay: 0.03s;
+}
+.thumbnail.ng-leave-stagger {
+    transition-delay: 0.03s;
+    animation-delay: 0.03s;
+}
+
 
 header, section {
     width: 700px;
     margin: 0px auto;
+}
+section {
+    height: 700px;
 }
 #contentWrapper {
     margin: 20px 0px 0px 0px;
@@ -44,7 +74,7 @@ header, section {
 nav {
     width: 680px;
     margin: 0px auto;
-    padding: 10px 10px 20px 10px;
+    padding: 15px 10px 0px 10px;
     border-bottom: 1px solid #8b8b8b;
     text-align: center;
 }
@@ -63,9 +93,6 @@ input[type="button"], input[type="submit"] {
     border-color: #b4b4b4 !important;
     color:#a0a0a0;
     cursor:auto !important;
-}
-.thumbnail {
-    float:left;   
 }
 .center {
     font-size: 12px;

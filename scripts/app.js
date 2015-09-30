@@ -1,4 +1,4 @@
-angular.module('insta', [])
+angular.module('insta', ['ngAnimate'])
 .config(function($httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
 })
