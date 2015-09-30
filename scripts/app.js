@@ -38,10 +38,10 @@ angular.module('insta', ['ngAnimate'])
         var url = url || 'https://api.instagram.com/v1/tags/' + encodeURIComponent($scope.searchCriteria) + '/media/recent?client_id=' + cid + '&count=30&callback=JSON_CALLBACK';
         
         if (url.indexOf('angular.callbacks') !== -1){
-            url = url.replace(/angular\.callbacks\._[0-9]+/,'JSON_CALLBACK');
+            url = url.replace(/angular\.callbacks\._[\w]+/,'JSON_CALLBACK');
         }
         
-        $http.jsonp(url)
+        $http({method:'jsonp',url:url})
         .then(function(response){
             if (!isPrev){
                 if (response.data.data.length !== 0){
@@ -58,9 +58,6 @@ angular.module('insta', ['ngAnimate'])
                 }
             }
         },function(data){
-            
-            console.log('inside error callback',data);
-            
             if (data.status === 404){
                 resetData();
                 $scope.searchCriteria = null;
