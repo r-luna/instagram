@@ -30,13 +30,13 @@ img {
 }
 .thumbnail.ng-enter{
     opacity: 0 !important;
-    height: 0px;
-    width: 0px;
+    height: 80px;
+    width: 80px;
 }
 .thumbnail.ng-enter-active{
     opacity: 1 !important;
-    height: 50px !important;
-    width: 50px !important;
+    height: 80px !important;
+    width: 80px !important;
 }
 .thumbnail.ng-leave-active {
     opacity: 0 !important;
