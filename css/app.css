@@ -1,110 +1,143 @@
-
+*:focus {
+    outline:none;
+}
 body {
-    font-family: Arial, sans-serif;   
+    font-family: "Merriweather", serif;
+    background-color:#318176;
+    margin: 0px;
+}
+header {
+    background-color:#3f559b;
+}
+form {
+    padding: 0px 0px 15px 0px;
+}
+#navBtnWrapper{
+    padding: 12px 12px;
+    padding: 12px 12px;
+    width: 253px;
+    margin: 0 auto;
 }
 
-#logo {
-    background-image: url(../images/header.png);
-    background-position: 40px 0px;
-    background-repeat: no-repeat;
-    background-size: 80% 80%;
-    width: 334px;
-    height:117px;
+#titlebox{
+    padding: 35px 62px 0px 0px;
+    text-align: center;
+    margin: 0px 0px -17px 0px;
+    position: relative;
+    z-index: 3;
+}
+#titleboxblocker {
+    height: 10px;
+    width: 16px;
+    border-radius: 10px;
+    background-color: #3f559b;
+    position: relative;
     margin: 0px auto;
+    left: -22px;
+    top: 4px;
+    z-index: 2;
 }
+.title {
+    font-size: 36px;
+    font-weight: 700;
+    color:#fff;
+}
+
 img {
-    height: 100px;
-    width: 100px;
     border: none;
+    height: 100%;
+    width: 100%;
 }
-
-
 .thumbnail {
-    transition: all linear 0.5s;
-    height: 80px;
-    width: 80px;
+    height: 7vw;
+    width: 7vw;
+    transition: all linear .75s;
     opacity: 1;
     float:left;
     overflow: hidden;
     border: 1px solid #ccc;
+    margin: 4px;
 }
 .thumbnail.ng-enter{
     opacity: 0 !important;
-    height: 80px;
-    width: 80px;
+    height: 7vw;
+    width: 7vw;
 }
 .thumbnail.ng-enter-active{
     opacity: 1 !important;
-    height: 80px !important;
-    width: 80px !important;
+    height: 7vw !important;
+    width: 7vw !important;
 }
-.thumbnail.ng-leave-active {
-    opacity: 0 !important;
-    height: 0px;
-    width: 0px;
-}
-.thumbnail.ng-leave-active {
+.thumbnail.ng-leave-active{
     opacity: 0 !important;
     height: 0px;
     width: 0px;
 }
 .thumbnail.ng-enter-stagger {
-    transition-delay: 0.05s;
-    animation-delay: 0.01s;
-}
-.thumbnail.ng-leave-stagger {
-    transition-delay: 0.05s;
+    transition-delay: 0.09s;
     animation-delay: 0.01s;
 }
 
-
-header, section {
-    width: 700px;
-    margin: 0px auto;
-}
-section {
-    height: 700px;
-}
 #contentWrapper {
-    margin: 20px 0px 0px 0px;
-}
-.left {
-    float: left;
-}
-.right {
-    float: right;   
-}
-
-.clearFloat {
-    clear: both;
+    margin: 0px 63vw 0px -35vw;
+    left: 50%;
+    position: relative;
 }
 
 #searchWrapper {
-    width: 334px;
+    width: 252px;
     margin: 0px auto;
+    position: relative;
+    z-index: 1;
 }
-.errorText{
-    text-align: center;
-    margin: 20px 0px 0px 0px;
+.errorText {
+    opacity: 1;
+    height: 43px;
+    width: 270px;
+    transition: all linear .3s;
     font-size: 14px;
-    color:#ff0000;
+    color:#fff;
+    font-family: Arial, sans-serif;
 }
-nav {
-    width: 680px;
-    margin: 0px auto;
-    padding: 15px 10px 0px 10px;
-    border-bottom: 1px solid #8b8b8b;
-    text-align: center;
+
+
+.errorText.ng-hide-remove {
+    opacity: 0 !important;
+    height: 0px;
 }
+.errorText.ng-hide-remove-active {
+    opacity: 1 !important;
+    height: 43px;
+}
+.errorText.ng-hide-add-active {
+    opacity: 0 !important;
+    height: 0px;
+}
+
 nav input:first-child {
     float: left;
 }
 nav input:nth-child(2) {
     float: right;
 }
+input[type="text"]{
+    border: 1px solid #fff;
+    background-color: #3f559b;
+    color: #fff;
+    padding: 5px;
+    font-family: sans-serif;
+    width: 178px;
+}
 input[type="button"], input[type="submit"] {
     border: 1px solid #000000;
     cursor: pointer;
+    height: 27px;
+    border: 1px solid #fff;
+    background-color: #3f559b;
+    color: #fff;
+}
+input[type="button"] {
+    width: 87px;
 }
 .disabled {
     background-color:#e6e6e6;
@@ -116,16 +149,61 @@ input[type="button"], input[type="submit"] {
     font-size: 12px;
     width: 200px;   
 }
-#navInfo {
-    position: relative;
-    top: -18px;
-    left: 72px;
-    width: 514px;
+#infoBox {
+    font-weight: 400;
+    color: #C8C7EA;
+    margin: 0px 0px 12px 0px;
+    padding: 15px 0px 15px 0px;
+    border-bottom: 1px solid #8b8b8b;
+    text-align: center;
+    background-color: #6378bc;
+}
+.info {
+    
+}
+.clearfloat {
+    clear: both;
 }
 
+@-webkit-keyframes pointer {
+  0%   { left: -50px; }
+  100% { left: -40px; }
+}
+@-moz-keyframes pointer {
+  0%   { left: -50px; }
+  100% { left: -40px; }
+}
+@keyframes pointer {
+  0%   { left: -50px; }
+  100% { left: -40px; }
+}
 
+.hand {
+    -webkit-animation: pointer 1s infinite; /* Safari 4+ */
+    -moz-animation:    pointer 1s infinite; /* Fx 5+ */
+    animation:         pointer 1s infinite; /* IE 10+, Fx 29+ */
+    -webkit-animation-direction: alternate;
+    -moz-animation-direction: alternate;
+    animation-direction: alternate;
+    position: absolute;
+    background-image:url(../images/hand-icon.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width:30px;
+    height:30px;
+    top: -3px;
+    left: -50px;
+    opacity: 1;
+}
 
-
-
-
+.hand.ng-hide-remove {
+    opacity: 0 !important;
+}
+.hand.ng-hide-remove-active {
+    opacity: 1 !important;
+}
+.hand.ng-hide-add-active {
+    opacity: 0 !important;
+}
 

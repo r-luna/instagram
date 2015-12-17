@@ -125,3 +125,8 @@ angular.module('insta', ['ngAnimate'])
 
     
 });
+
+window.onresize = function(){
+    console.log(window.innerWidth / 5);
+    //document.getElementById('contentWrapper').style.width = ((window.innerWidth / 5 + 10) * 5) + 'px';
+}

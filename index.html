@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html ng-app="insta">
     <head>
-        <title></title>
+        <title>Search Instagram</title>
         <link rel="stylesheet" type="text/css" href="css/app.css" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:300,400,700" rel="stylesheet" type="text/css">
         <script data-require="angular.js@1.3.11" data-semver="1.3.11" src="https://code.angularjs.org/1.3.11/angular.js"></script>
         <script data-require="angular-animate@1.3.11" data-semver="1.3.11" src="https://code.angularjs.org/1.3.11/angular-animate.js"></script>
-        
         <script type="text/javascript" src="scripts/app.js"></script>      
     </head>
     <body ng-controller="MyController" ng-cloak>
         <header>
-            <div id="logo"></div>
+            <div id="titlebox" class="title">Instagram</div>
+            <div id="titleboxblocker"></div>
             <div id="searchWrapper">
                 <form name="theForm" novalidate>
-                    <div class="left">
-                        <input type="text" name="search" placeholder="Keyword" ng-model="searchCriteria" ng-pattern="/^\w+$/" ng-enter="submitFirm()" autofocus required />
-                    </div>
-                    <div class="right">
-                        <input type="submit" ng-click="submitForm()">
-                    </div>
+                    <div class="hand" ng-show="theForm.$submitted && theForm.search.$error.required"></div>
+                    <input type="text" name="search" placeholder="Keyword" autocomplete="off" ng-model="searchCriteria" ng-pattern="/^\w+$/" ng-enter="submitFirm()" autofocus required />
+                    <input type="submit" ng-click="submitForm()">
                     <div class="clearFloat"></div>
-                    <div class="errorText" ng-if="theForm.$submitted && theForm.search.$error.pattern">
-                        Invalid characters.
-                    </div>
-                    <div class="errorText" ng-if="theForm.$submitted && theForm.search.$error.required">
-                        This field is required
-                    </div>
-                    <div class="errorText" ng-show="error">
-                        {{ error}}
-                    </div>
                 </form>
+                <div class="errorText" ng-show="theForm.$submitted && theForm.search.$error.pattern">
+                    Invalid characters or try a single keyword.
+                </div>
+                <div class="errorText" ng-show="theForm.$submitted && theForm.search.$error.required">
+                    This field is required
+                </div>
+                <div class="errorText" ng-show="error">
+                    {{ error}}
+                </div>
             </div>
         </header>
-        <nav id="infoTextWrapper" ng-show="infoText">
-            <div>&nbsp;
+        <section>
+            <div id="infoBox" ng-show="infoText">
+                <div class="info">{{ infoText }}</div>
+            </div>
+        </section>
+        <nav>
+            <div id="navBtnWrapper">
                 <input type="button" ng-show="pageObjects.length !== 0" ng-class="{'disabled' : ndx === 0}" ng-click="previousPage()" value="Previous" />
                 <input type="button" ng-show="pageObjects.length !== 0" ng-class="{'disabled' : pageObjects.length === 0}" ng-click="nextPage()" value="{{ nextBtnVal }}" />
-                <div class="clearFloat"></div>
+                <div class="clearfloat"></div>
             </div>
-            <div id="navInfo">{{ infoText }}</div>
         </nav>
         <section>
-            <div id="contentWrapper">
+            <div id="contentWrapper" ng-show="infoText">
                 <div class="thumbnail" ng-repeat="page in currentPage.data" >
                     <a href="{{ page.link }}" target="_blank">
                         <img ng-src="{{ page.images.thumbnail.url }}" />
                     </a>
                 </div>
+                <div class="clearFloat"></div> 
             </div>
         </section>
-        <div class="clearFloat"></div> 
     </body>
 </html>
