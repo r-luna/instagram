@@ -139,11 +139,11 @@ input[type="button"], input[type="submit"] {
 input[type="button"] {
     width: 87px;
 }
-.disabled {
-    background-color:#e6e6e6;
+input[type="button"].disabled {
+    background-color: #326277;
     border-color: #b4b4b4 !important;
-    color:#a0a0a0;
-    cursor:auto !important;
+    color: #a0a0a0;
+    cursor: auto !important;
 }
 .center {
     font-size: 12px;
